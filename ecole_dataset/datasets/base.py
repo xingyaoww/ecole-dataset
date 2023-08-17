@@ -7,7 +7,8 @@ from datasets import (
     IterableDataset,
 )
 
-from ecole_dataset.types import PreprocessorType
+from ecole_dataset.types import PreprocessorType, ConceptType
+
 
 class DatasetLoader:
     """Load datasets from the HuggingFace Hub."""
@@ -16,6 +17,7 @@ class DatasetLoader:
     path: str
     name: str
     split: str
+    concept_type: List[ConceptType]
     preprocessors: List[PreprocessorType] = []
 
     @property
@@ -46,11 +48,10 @@ class DatasetMixtureLoader:
         """Initialize the dataset mixture loader."""
         self.datasets = datasets
 
-    def load(self) -> List[
+    def load(
+        self,
+    ) -> List[
         Tuple[str, Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]]
     ]:
         """Load the dataset."""
-        return [
-            (dataset.dataset_id, dataset.load())
-            for dataset in self.datasets
-        ]
+        return [(dataset.dataset_id, dataset.load()) for dataset in self.datasets]

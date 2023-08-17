@@ -1,3 +1,4 @@
+from enum import Enum
 from collections import namedtuple
 
 
@@ -7,3 +8,10 @@ PreprocessorType = namedtuple(
     "Preprocessor",
     ["function", "kwargs"]
 )
+
+class ConceptType:
+    OBJECT = "object"
+    ATTRIBUTE = "attribute"
+    AFFORDANCE = "affordance"
+    RELATIONSHIP = "relationship"
+    ACTIVITY = "activity"
