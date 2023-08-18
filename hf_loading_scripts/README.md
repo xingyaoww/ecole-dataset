@@ -1,4 +1,4 @@
-# Notes on creating a HF dataset by writing a loading script
+## Notes on creating a HF dataset by writing a loading script
 
 The dataset loading script spefifies where to download the files and how to load them into a HF dataset.
 
@@ -29,7 +29,7 @@ The dataset loading script spefifies where to download the files and how to load
 
 
 ## [Updated Aug18] Implementation Notes
-- Down converting HF datasets: VAW, ImSitu
+- Done converting HF datasets: VAW, ImSitu
 - TODO: Padv2
     - Downloaded and unziped Padv2 dataset: /shared/nas/data/m1/shared-resource/vision-language/data/raw/Padv2
 - TODO: Add instruction/implementation handling image downloading
