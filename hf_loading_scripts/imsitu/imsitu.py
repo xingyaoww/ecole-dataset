@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Visual Attributes in the Wild (VAW) dataset"""
+"""imSitu dataset"""
 
 
 import csv
@@ -22,29 +22,30 @@ import os
 import datasets
 
 _CITATION = """\
-@InProceedings{Pham_2021_CVPR,
-    author    = {Pham, Khoi and Kafle, Kushal and Lin, Zhe and Ding, Zhihong and Cohen, Scott and Tran, Quan and Shrivastava, Abhinav},
-    title     = {Learning To Predict Visual Attributes in the Wild},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2021},
-    pages     = {13018-13028}
+@inproceedings{yatskar2016,
+  title={Situation Recognition: Visual Semantic Role Labeling for Image Understanding},
+  author={Yatskar, Mark and Zettlemoyer, Luke and Farhadi, Ali},
+  booktitle={Conference on Computer Vision and Pattern Recognition},
+  year={2016}
 }
 """
 
 # TODO: Add description of the dataset here
 # You can copy an official description
 _DESCRIPTION = """\
-Visual Attributes in the Wild (VAW) dataset: https://github.com/adobe-research/vaw_dataset#dataset-setup
-Raw annotations and configs such as attrubte_types can be found at: https://github.com/adobe-research/vaw_dataset/tree/main/data
-Note: The train split loaded from this hf dataset is a concatenation of the train_part1.json and train_part2.json.
+imSitu is a dataset supporting situation recognition, the problem of producing a concise summary of the situation an image depicts including: (1) the main activity, (2) the participating actors, objects, substances, and locations and most importantly (3) the roles these participants play in the activity. The role set used by imSitu is derived from the linguistic resource FrameNet and the entities are derived from ImageNet. The data in imSitu can be used to create robust algorithms for situation recongntion.
+
+Repository: https://github.com/my89/imSitu;
+- The metadata used for imSitu: https://github.com/my89/imSitu#metadata
+- The images can be downloaded following: https://github.com/my89/imSitu#images
+- This HF dataset loads the `train.json`, `val.json` and `test.json` from the repository
 """
 
 # TODO: Add a link to an official homepage for the dataset here
-_HOMEPAGE = "http://vawdataset.com/"
+_HOMEPAGE = "http://imsitu.org/"
 
 # TODO: Add the licence for the dataset here if you can find it
-_LICENSE = "https://github.com/adobe-research/vaw_dataset/blob/main/LICENSE.md"
+_LICENSE = ""
 
 # TODO: Add link to the official dataset URLs here
 # The HuggingFace Datasets library doesn't host the datasets but only points to the original files.
@@ -54,20 +55,16 @@ _LICENSE = "https://github.com/adobe-research/vaw_dataset/blob/main/LICENSE.md"
 #     # "second_domain": "https://huggingface.co/great-new-dataset-second_domain.zip",
 # }
 
-# _URL = "https://github.com/adobe-research/vaw_dataset/blob/main/data/"
-_URL = "https://raw.githubusercontent.com/adobe-research/vaw_dataset/main/data/"
+_URL = "https://raw.githubusercontent.com/my89/imSitu/master/"
 _URLS = {
-    "train": {
-        "part1": _URL + "train_part1.json",
-        "part2": _URL + "train_part2.json"
-    },
-    "val": _URL + "val.json",
+    "train": _URL + "train.json",
+    "val": _URL + "dev.json",
     "test": _URL + "test.json"
 }
 
 
 # TODO: Name of the dataset usually matches the script name with CamelCase instead of snake_case
-class VAW(datasets.GeneratorBasedBuilder):
+class imSitu(datasets.GeneratorBasedBuilder):
     """TODO: Short description of my dataset."""
 
     VERSION = datasets.Version("1.0.0")
@@ -114,12 +111,8 @@ class VAW(datasets.GeneratorBasedBuilder):
         features = datasets.Features(
             {
                 "image_id": datasets.Value("string"), # int (Image ids correspond to respective Visual Genome image ids)
-                "instance_id": datasets.Value("string"), # int (Unique instance ID)
-                "instance_bbox": datasets.features.Sequence(datasets.Value("float")), # [x, y, width, height] (Bounding box co-ordinates for the instance)
-                "instance_polygon": datasets.features.Sequence(datasets.features.Sequence(datasets.features.Sequence(datasets.Value("float")))) , # list of [x y] (List of vertices for segmentation polygon if exists else None)
-                "object_name": datasets.Value("string"), # str (Name of the object for the instance)
-                "positive_attributes": datasets.features.Sequence(datasets.Value("string")) , # list of str (Explicitly labeled positive attributes for the instance)
-                "negative_attributes": datasets.features.Sequence(datasets.Value("string")) # list of str (Explicitly labeled negative attributes for the instance)
+                "frames":datasets.features.Sequence(datasets.Value("string")), # list of jsonl strings indicating frames
+                "verb": datasets.Value("string"),
             }
         )
 
@@ -200,21 +193,11 @@ class VAW(datasets.GeneratorBasedBuilder):
         #                 "second_domain_answer": "" if split == "test" else data["second_domain_answer"],
         #             }
     
-        if split == "train":
-            # concat part1 and part 2 files
-            part1_data = json.load(open(filepath['part1'], encoding="utf-8"))
-            part2_data = json.load(open(filepath['part2'], encoding="utf-8"))
-            data = part1_data + part2_data
-        else:
-            data = json.load(open(filepath, encoding="utf-8"))
-        
-        for key, row in enumerate(data):
+        data = json.load(open(filepath, encoding="utf-8"))
+
+        for key, row in data.items():
             yield key, {
-                "image_id": row["image_id"],
-                "instance_id": row["instance_id"],
-                "instance_bbox": row["instance_bbox"],
-                "instance_polygon": row["instance_polygon"],
-                "object_name": row["object_name"],
-                "positive_attributes": row["positive_attributes"],
-                "negative_attributes": row["negative_attributes"]
+                "image_id": key,
+                "frames": [json.dumps(obj) for obj in row["frames"]],
+                "verb": row["verb"]
             }
