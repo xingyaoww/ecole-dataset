@@ -7,23 +7,19 @@ from datasets import (
     IterableDataset,
 )
 
-from ecole_dataset.types import PreprocessorType, ConceptType
+from ecole_dataset.types import ConceptType, SplitType
 
 
 class DatasetLoader:
-    """Load datasets from the HuggingFace Hub."""
+    """Load datasets from the HuggingFace Hub or from local files."""
 
     # path and name to the dataset in the HuggingFace Hub
+    # or optionally a different path if you override the .load method
+    # for custom loading
     path: str
     name: str
-    split: str
+    split: SplitType
     concept_type: List[ConceptType]
-    preprocessors: List[PreprocessorType] = []
-
-    @property
-    def dataset_id(self) -> str:
-        """Return the dataset ID."""
-        return f"{self.path}/{self.name}:{self.split}"
 
     @classmethod
     def load(cls) -> Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]:
@@ -31,18 +27,13 @@ class DatasetLoader:
         dataset = load_dataset(
             cls.path,
             cls.name,
-            split=cls.split,
+            split=cls.split.value,
         )
-
-        if cls.preprocessors:
-            for preprocessor in cls.preprocessors:
-                dataset = dataset.map(preprocessor.function, preprocessor.kwargs)
-
         return dataset
 
 
 class DatasetMixtureLoader:
-    """Load a mixture of datasets from the HuggingFace Hub."""
+    """Load a mixture of DatasetLoader."""
 
     def __init__(self, datasets: list[DatasetLoader]):
         """Initialize the dataset mixture loader."""
@@ -54,4 +45,7 @@ class DatasetMixtureLoader:
         Tuple[str, Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]]
     ]:
         """Load the dataset."""
-        return [(dataset.dataset_id, dataset.load()) for dataset in self.datasets]
+        return [
+            (dataset.__class__.__name__, dataset.load())
+            for dataset in self.datasets
+        ]
