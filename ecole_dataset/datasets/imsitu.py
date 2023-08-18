@@ -13,7 +13,7 @@ class ImSitu(DatasetLoader):
         - The metadata used for imSitu: https://github.com/my89/imSitu#metadata
         - The images can be downloaded following: https://github.com/my89/imSitu#images
         - This HF dataset loads the train.json, val.json and test.json from the repository
-    Huggingface Dataset: https://huggingface.co/datasets/mikewang/vaw
+    Huggingface Dataset: https://huggingface.co/datasets/mikewang/imsitu
     
     IMPORTANT NOTE: The frames field in the loaded HF dataset contains a list of json strings 
         (since the data structure for each verb frame is different). 
