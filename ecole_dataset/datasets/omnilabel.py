@@ -9,6 +9,7 @@ from datasets import (
 )
 from cached_path import cached_path
 
+import ecole_dataset
 from .base import DatasetLoader
 from ecole_dataset.types import ConceptType, SplitType
 from ecole_dataset.registry import add_to_registry
@@ -16,6 +17,13 @@ from ecole_dataset.registry import add_to_registry
 
 @add_to_registry
 class OmniLabel(DatasetLoader):
+    """OmniLabel dataset.
+
+    URL: https://www.omnilabel.org
+    Huggingface Dataset containing the original downloaded version:
+        https://huggingface.co/datasets/xingyaoww/omnilabel
+    
+    """
     path: str = "https://huggingface.co/datasets/xingyaoww/omnilabel/resolve/main/dataset_all_val_v0.1.3.json"
     name: str = "omnilabel"
     split: SplitType = SplitType.VALID  # Only validation set has annotations available
@@ -24,6 +32,7 @@ class OmniLabel(DatasetLoader):
     @classmethod
     def load(cls) -> Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]:
         """Load the dataset."""
+        # TODO: potentially make this more efficient by caching the dataset once preprocessed
         with open(cached_path(cls.path)) as f:
             data = json.load(f)
 
