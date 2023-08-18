@@ -17,9 +17,9 @@ class DatasetLoader:
     # or optionally a different path if you override the .load method
     # for custom loading
     path: str
-    name: str
-    split: SplitType
-    concept_type: List[ConceptType]
+    name: str = None
+    split: SplitType = SplitType.TRAIN
+    concept_type: List[ConceptType] = []
 
     @classmethod
     def load(cls) -> Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]:
@@ -27,7 +27,7 @@ class DatasetLoader:
         dataset = load_dataset(
             cls.path,
             cls.name,
-            split=cls.split.value,
+            split=cls.split,
         )
         return dataset
 
