@@ -1,3 +1,4 @@
+from datasets import Split
 from enum import Enum
 from collections import namedtuple
 
@@ -8,7 +9,4 @@ class ConceptType(Enum):
     RELATIONSHIP = "relationship"
     ACTIVITY = "activity"
 
-class SplitType(Enum):
-    TRAIN = "train"
-    VALID = "valid"
-    TEST = "test"
+SplitType = Split
