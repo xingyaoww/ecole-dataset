@@ -12,9 +12,9 @@ def add_to_registry(dataloader: DatasetLoader):
     return dataloader
 
 
-def load_datasets(concept_type: ConceptType, split: SplitType):
+def load_datasets(concept_type: ConceptType, split: Optional[SplitType]):
     ret = []
     for dataset in REGISTERED_DATASET:
-        if concept_type in dataset.concept_type and split == dataset.split:
+        if concept_type in dataset.concept_type and (split is None or dataset.split == split):
             ret.append(dataset)
     return DatasetMixtureLoader(ret)
