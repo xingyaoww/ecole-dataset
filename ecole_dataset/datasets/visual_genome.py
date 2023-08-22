@@ -1,12 +1,12 @@
 from .base import DatasetLoader
 from ecole_dataset.types import ConceptType
-from ecole_dataset.registry import add_to_registry
+from ecole_dataset.registry import add_to_registry, SplitType
 
 # https://huggingface.co/datasets/visual_genome/blob/main/README.md
 
 class VisualGenome(DatasetLoader):
     path = "visual_genome"
-    split = "train"
+    split = SplitType.TRAIN
 
 @add_to_registry
 class VisualGenomeAttributes(VisualGenome):
