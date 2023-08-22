@@ -17,3 +17,9 @@ class Kinetics400(DatasetLoader):
     kwargs = {
         "data_files": "test.csv"
     }
+
+    @classmethod
+    def load(cls):
+        """Load the dataset."""
+        dataset = super().load()
+        return dataset["train"]  # This is actullay the test set, but hf defaults its name to "train"
