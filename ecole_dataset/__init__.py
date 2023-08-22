@@ -20,3 +20,4 @@ set_cache_dir(Path(CACHE_DIR) / "cached_path")
 
 from . import datasets
 from . import registry
+from .types import *
