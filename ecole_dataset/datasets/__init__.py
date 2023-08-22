@@ -5,3 +5,4 @@ from .base import *
 from .omnilabel import *
 from .visual_genome import *
 from .vaw import *
+from .imsitu import *
