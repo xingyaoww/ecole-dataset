@@ -8,11 +8,18 @@ from ecole_dataset.registry import add_to_registry
 
 # You should download the dataset and set the environment variables
 # https://www.omnilabel.org/dataset/download#h.liddoykhrd2s
-PREFIX_TO_DIR = {
-    "coco": os.environ["COCO_VAL2017_DIR"],
-    "object365": os.environ["OBJECT365_VAL_DIR"],
-    "openimagesv5": os.environ["OPEN_IMAGES_V5_TEST_DIR"],
-}
+def get_prefix_to_dir():
+    try:
+        return {
+            "coco": os.environ["COCO_VAL2017_DIR"],
+            "object365": os.environ["OBJECT365_VAL_DIR"],
+            "openimagesv5": os.environ["OPEN_IMAGES_V5_TEST_DIR"],
+        }
+    except KeyError as e:
+        raise KeyError(
+            f"Error when loading OmniLabel dataset: {e}. "
+            "To use OmniLabel dataset, you need to download the dataset following https://www.omnilabel.org/dataset/download#h.liddoykhrd2s, and set the environment variables COCO_VAL2017_DIR, OBJECT365_VAL_DIR, OPEN_IMAGES_V5_TEST_DIR in source.sh to the corresponding directories."
+        )
 
 @add_to_registry
 class OmniLabel(DatasetLoader):
@@ -35,12 +42,13 @@ class OmniLabel(DatasetLoader):
         ecole_dataset.logger.info(
             "To use OmniLabel dataset, you need to download the dataset following https://www.omnilabel.org/dataset/download#h.liddoykhrd2s, and set the environment variables COCO_VAL2017_DIR, OBJECT365_VAL_DIR, OPEN_IMAGES_V5_TEST_DIR in source.sh to the corresponding directories."
         )
+        prefix_to_dir = get_prefix_to_dir()
         # load image_filename
         # https://www.omnilabel.org/dataset/download#h.liddoykhrd2s
         def add_image(example):
             # example["image_filename"] = os.path.join("images", example["image_id"] + ".jpg")
             prefix, image_filename = example["image_filename"].split("/")
-            filepath_to_load = os.path.join(PREFIX_TO_DIR[prefix], image_filename)
+            filepath_to_load = os.path.join(prefix_to_dir[prefix], image_filename)
 
             # load into PIL.Image
             example["image"] = Image.open(filepath_to_load)
