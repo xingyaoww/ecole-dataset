@@ -43,20 +43,21 @@ class OmniLabel(DatasetLoader):
         """Load the dataset."""
         dataset = super().load()
 
-        ecole_dataset.logger.info(
-            "To use OmniLabel dataset, you need to download the dataset following https://www.omnilabel.org/dataset/download#h.liddoykhrd2s, and set the environment variables COCO_VAL2017_DIR, OBJECT365_VAL_DIR, OPEN_IMAGES_V5_TEST_DIR in source.sh to the corresponding directories."
-        )
-        prefix_to_dir = get_prefix_to_dir()
-        # load image_filename
-        # https://www.omnilabel.org/dataset/download#h.liddoykhrd2s
-        def add_image(example):
-            # example["image_filename"] = os.path.join("images", example["image_id"] + ".jpg")
-            prefix, image_filename = example["image_filename"].split("/")
-            filepath_to_load = os.path.join(prefix_to_dir[prefix], image_filename)
+        # TODO(xingyao6): load images
+        # ecole_dataset.logger.info(
+        #     "To use OmniLabel dataset, you need to download the dataset following https://www.omnilabel.org/dataset/download#h.liddoykhrd2s, and set the environment variables COCO_VAL2017_DIR, OBJECT365_VAL_DIR, OPEN_IMAGES_V5_TEST_DIR in source.sh to the corresponding directories."
+        # )
+        # prefix_to_dir = get_prefix_to_dir()
+        # # load image_filename
+        # # https://www.omnilabel.org/dataset/download#h.liddoykhrd2s
+        # def add_image(example):
+        #     # example["image_filename"] = os.path.join("images", example["image_id"] + ".jpg")
+        #     prefix, image_filename = example["image_filename"].split("/")
+        #     filepath_to_load = os.path.join(prefix_to_dir[prefix], image_filename)
 
-            # load into PIL.Image
-            example["image"] = Image.open(filepath_to_load)
-            return example
+        #     # load into PIL.Image
+        #     example["image"] = Image.open(filepath_to_load)
+        #     return example
 
-        dataset = dataset.map(add_image)
+        # dataset = dataset.map(add_image)
         return dataset
