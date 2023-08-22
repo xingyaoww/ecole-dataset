@@ -32,22 +32,3 @@ class DatasetLoader:
             **cls.hf_ds_kwargs,
         )
         return dataset
-
-
-class DatasetMixtureLoader:
-    """Load a mixture of DatasetLoader."""
-
-    def __init__(self, datasets: list[DatasetLoader]):
-        """Initialize the dataset mixture loader."""
-        self.datasets = datasets
-
-    def load(
-        self,
-    ) -> List[
-        Tuple[str, Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]]
-    ]:
-        """Load the dataset."""
-        return [
-            (dataset.__class__.__name__, dataset.load())
-            for dataset in self.datasets
-        ]
