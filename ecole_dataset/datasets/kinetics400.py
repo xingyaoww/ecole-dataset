@@ -23,18 +23,18 @@ class Kinetics400(DatasetLoader):
 
 
 @add_to_registry
-class Kinetics4000Train(Kinetics400):
+class Kinetics400Train(Kinetics400):
     split: SplitType = SplitType.TRAIN
     hf_ds_kwargs = {"data_files": "train.csv"}
 
 
 @add_to_registry
-class Kinetics4000Val(Kinetics400):
+class Kinetics400Val(Kinetics400):
     split: SplitType = SplitType.VALIDATION
     hf_ds_kwargs = {"data_files": "val.csv"}
 
 
 @add_to_registry
-class Kinetics4000Test(Kinetics400):
+class Kinetics400Test(Kinetics400):
     split: SplitType = SplitType.TEST
     hf_ds_kwargs = {"data_files": "test.csv"}
