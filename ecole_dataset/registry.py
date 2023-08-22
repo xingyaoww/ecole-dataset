@@ -1,20 +1,30 @@
-from typing import Optional, List
-from collections import namedtuple
-from datasets import load_dataset as hf_load_dataset
-
+from typing import Optional, List, Mapping
+from datasets import Dataset
+import ecole_dataset
 from ecole_dataset.types import ConceptType, SplitType
-from ecole_dataset.datasets.base import DatasetLoader, DatasetMixtureLoader
+from ecole_dataset.datasets.base import DatasetLoader
 
 REGISTERED_DATASET: List[DatasetLoader] = []
+
 
 def add_to_registry(dataloader: DatasetLoader):
     REGISTERED_DATASET.append(dataloader)
     return dataloader
 
 
-def load_datasets(concept_type: ConceptType, split: SplitType):
-    ret = []
+def load_datasets(
+    concept_type: Optional[ConceptType] = None,
+    split: Optional[SplitType] = None
+) -> Mapping[str, Dataset]:
+    """Load all datasets that match the concept_type and split."""
+    ret = {}
     for dataset in REGISTERED_DATASET:
-        if concept_type in dataset.concept_type and split == dataset.split:
-            ret.append(dataset)
-    return DatasetMixtureLoader(ret)
+        if (concept_type is None or concept_type in dataset.concept_type) and (
+            split is None or dataset.split == split
+        ):
+            ret[dataset.__name__] = dataset.load()
+
+    ecole_dataset.logger.info(
+        f"Loaded {len(ret)} datasets: {', '.join(ret.keys())}"
+    )
+    return ret

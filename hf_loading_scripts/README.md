@@ -11,12 +11,13 @@ The dataset loading script spefifies where to download the files and how to load
 ## HF Datasets created by ourselves
 - [Visual Attributes in the Wild (VAW)](vaw/)
 - [imSitu](imsitu/)
+- [OmniLabel](omnilabel/)
 
 
 ## (TBD|Updating) Demo evaluation dataset pool
 | Datasets | Concept Types | Format | HF Dataset Link | Official Repo/Homepage |
 |----------|----------|----------|----------|----------|
-| OmniLabel | **object** | image | N/A | https://www.omnilabel.org/dataset/download |
+| OmniLabel | **object** | image | https://huggingface.co/datasets/xingyaoww/omnilabel | https://www.omnilabel.org/dataset/download |
 | VAW | **attribute**, object | image | https://huggingface.co/datasets/mikewang/vaw | https://github.com/adobe-research/vaw_dataset#dataset-setup |
 | PAD-v2 | **affordance** | image | N/A | https://github.com/lhc1224/OSAD_Net |
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
