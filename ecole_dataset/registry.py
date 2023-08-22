@@ -12,7 +12,10 @@ def add_to_registry(dataloader: DatasetLoader):
     return dataloader
 
 
-def load_datasets(concept_type: Optional[ConceptType], split: Optional[SplitType]) -> Mapping[str, Dataset]:
+def load_datasets(
+    concept_type: Optional[ConceptType] = None,
+    split: Optional[SplitType] = None
+) -> Mapping[str, Dataset]:
     """Load all datasets that match the concept_type and split."""
     ret = {}
     for dataset in REGISTERED_DATASET:
@@ -20,6 +23,8 @@ def load_datasets(concept_type: Optional[ConceptType], split: Optional[SplitType
             split is None or dataset.split == split
         ):
             ret[dataset.__name__] = dataset.load()
-    
-    ecole_dataset.logger.info(f"Loaded {len(ret)} datasets: {', '.join([name for name, _ in ret])}")
+
+    ecole_dataset.logger.info(
+        f"Loaded {len(ret)} datasets: {', '.join(ret.keys())}"
+    )
     return ret

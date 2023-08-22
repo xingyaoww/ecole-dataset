@@ -18,6 +18,6 @@ logger.info("To change this, set the environment variable DATASETS_CACHE")
 os.environ["HF_DATASETS_CACHE"] = (Path(CACHE_DIR) / "hf_datasets").as_posix()
 set_cache_dir(Path(CACHE_DIR) / "cached_path")
 
+from .types import *
 from . import datasets
 from . import registry
-from .types import *
