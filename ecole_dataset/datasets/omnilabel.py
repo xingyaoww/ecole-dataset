@@ -30,9 +30,13 @@ class OmniLabel(DatasetLoader):
     """
 
     path: str = "xingyaoww/omnilabel"
-    # Only validation set has annotations available
-    split: SplitType = SplitType.VALIDATION
+    split: SplitType = SplitType.TEST
     concept_type: List[ConceptType] = [ConceptType.OBJECT]
+    hf_ds_kwargs = {
+        # Only validation set has annotations available
+        # So we use validation set as our test set
+        "split": "validation",
+    }
 
     @classmethod
     def load(cls):

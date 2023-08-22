@@ -4,7 +4,6 @@ from ecole_dataset.types import ConceptType, SplitType
 from ecole_dataset.registry import add_to_registry
 
 
-@add_to_registry
 class ImSitu(DatasetLoader):
     """ImSitu Dataset.
 
@@ -14,9 +13,9 @@ class ImSitu(DatasetLoader):
         - The images can be downloaded following: https://github.com/my89/imSitu#images
         - This HF dataset loads the train.json, val.json and test.json from the repository
     Huggingface Dataset: https://huggingface.co/datasets/mikewang/imsitu
-    
-    IMPORTANT NOTE: The frames field in the loaded HF dataset contains a list of json strings 
-        (since the data structure for each verb frame is different). 
+
+    IMPORTANT NOTE: The frames field in the loaded HF dataset contains a list of json strings
+        (since the data structure for each verb frame is different).
         To convert the json strings back to dicts, you can refer to the following example:
         ```
             from datasets import load_dataset
@@ -27,6 +26,25 @@ class ImSitu(DatasetLoader):
             print(frames)
         ```
     """
+
     path: str = "mikewang/imsitu"
-    split: SplitType = SplitType.TRAIN
+    # split: SplitType = SplitType.TRAIN
     concept_type: List[ConceptType] = [ConceptType.ACTIVITY]
+
+
+@add_to_registry
+class ImSituTrain(ImSitu):
+    split: SplitType = SplitType.TRAIN
+    hf_ds_kwargs = {"split": "train"}
+
+
+@add_to_registry
+class ImSituVal(ImSitu):
+    split: SplitType = SplitType.VALIDATION
+    hf_ds_kwargs = {"split": "validation"}
+
+
+@add_to_registry
+class ImSituTest(ImSitu):
+    split: SplitType = SplitType.TEST
+    hf_ds_kwargs = {"split": "test"}
