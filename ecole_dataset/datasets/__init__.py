@@ -6,3 +6,4 @@ from .omnilabel import *
 from .visual_genome import *
 from .vaw import *
 from .imsitu import *
+from .kinetics400 import *

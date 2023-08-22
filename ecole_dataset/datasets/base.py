@@ -1,4 +1,4 @@
-from typing import Union, List, Tuple, Any, Optional
+from typing import Union, List, Tuple, Any, Dict
 from datasets import (
     load_dataset,
     Dataset,
@@ -20,6 +20,7 @@ class DatasetLoader:
     name: str = None
     split: SplitType = SplitType.TRAIN
     concept_type: List[ConceptType] = []
+    kwargs: Dict[str, Any] = {}
 
     @classmethod
     def load(cls) -> Union[DatasetDict, Dataset, IterableDatasetDict, IterableDataset]:
@@ -28,6 +29,7 @@ class DatasetLoader:
             cls.path,
             cls.name,
             split=cls.split,
+            **cls.kwargs,
         )
         return dataset
 
