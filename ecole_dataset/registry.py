@@ -28,3 +28,12 @@ def load_datasets(
         f"Loaded {len(ret)} datasets: {', '.join(ret.keys())}"
     )
     return ret
+
+def load_dataset(
+    name: str,
+) -> Dataset:
+    """Load a dataset by name."""
+    for dataset in REGISTERED_DATASET:
+        if dataset.__name__ == name:
+            return dataset.load()
+    raise ValueError(f"Dataset {name} not found")
