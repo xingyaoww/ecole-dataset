@@ -13,6 +13,7 @@ The dataset loading script spefifies where to download the files and how to load
 - [imSitu](imsitu/)
 - [OmniLabel](omnilabel/)
 - [Padv2 (Part1)](padv2/)
+- [AwA2](AwA2/)
 
 
 ## (TBD|Updating) Demo evaluation dataset pool
@@ -34,6 +35,6 @@ The dataset loading script spefifies where to download the files and how to load
 | Visual Genome | object, attribute, relationship | image | https://huggingface.co/datasets/visual_genome | https://homes.cs.washington.edu/~ranjay/visualgenome/index.html |
 
 
-## [Updated Aug18] Implementation Notes
-- Done converting HF datasets: VAW, ImSitu, OmniLabel, Padv2
-- TODO: Add instruction/implementation handling image downloading for OmniLabel, VAW, ImSitu (Padv2 has the image downloading handled in the dataset loading script)
+## [Updated Aug 27] Implementation Notes
+- Done converting HF datasets: VAW, ImSitu, OmniLabel, Padv2, AwA2
+- TODO: Add instruction/implementation handling image downloading for OmniLabel, VAW, ImSitu (Padv2, and AwA2 has the image downloading handled in the dataset loading script)
