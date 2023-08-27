@@ -12,6 +12,7 @@ The dataset loading script spefifies where to download the files and how to load
 - [Visual Attributes in the Wild (VAW)](vaw/)
 - [imSitu](imsitu/)
 - [OmniLabel](omnilabel/)
+- [Padv2 (Part1)](padv2/)
 
 
 ## (TBD|Updating) Demo evaluation dataset pool
@@ -19,7 +20,7 @@ The dataset loading script spefifies where to download the files and how to load
 |----------|----------|----------|----------|----------|
 | OmniLabel | **object** | image | https://huggingface.co/datasets/xingyaoww/omnilabel | https://www.omnilabel.org/dataset/download |
 | VAW | **attribute**, object | image | https://huggingface.co/datasets/mikewang/vaw | https://github.com/adobe-research/vaw_dataset#dataset-setup |
-| PAD-v2 | **affordance** | image | N/A | https://github.com/lhc1224/OSAD_Net |
+| PAD-v2 | **affordance** | image | https://huggingface.co/datasets/mikewang/padv2 | https://github.com/lhc1224/OSAD_Net |
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
 | Kinetics-400 | **activity** | video | https://huggingface.co/datasets/AlexFierro9/Kinetics400 | https://www.deepmind.com/open-source/kinetics |
 
@@ -30,7 +31,5 @@ The dataset loading script spefifies where to download the files and how to load
 
 
 ## [Updated Aug18] Implementation Notes
-- Done converting HF datasets: VAW, ImSitu
-- TODO: Padv2
-    - Downloaded and unziped Padv2 dataset: /shared/nas/data/m1/shared-resource/vision-language/data/raw/Padv2
-- TODO: Add instruction/implementation handling image downloading
+- Done converting HF datasets: VAW, ImSitu, OmniLabel, Padv2
+- TODO: Add instruction/implementation handling image downloading for OmniLabel, VAW, ImSitu (Padv2 has the image downloading handled in the dataset loading script)
