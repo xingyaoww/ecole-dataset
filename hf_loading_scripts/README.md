@@ -13,6 +13,7 @@ The dataset loading script spefifies where to download the files and how to load
 - [imSitu](imsitu/)
 - [OmniLabel](omnilabel/)
 - [Padv2 (Part1)](padv2/)
+- [AwA2](AwA2/)
 
 
 ## (TBD|Updating) Demo evaluation dataset pool
@@ -23,6 +24,10 @@ The dataset loading script spefifies where to download the files and how to load
 | PAD-v2 | **affordance** | image | https://huggingface.co/datasets/mikewang/padv2 | https://github.com/lhc1224/OSAD_Net |
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
 | Kinetics-400 | **activity** | video | https://huggingface.co/datasets/AlexFierro9/Kinetics400 | https://www.deepmind.com/open-source/kinetics |
+| AwA2 | **attribute** (Animal) | image | https://huggingface.co/datasets/mikewang/AwA2 | https://cvml.ista.ac.at/AwA2/ |
+| xView (TODO) | **object** (Satellite Imagery) | image | N/A | https://challenge.xviewdataset.org/data-download |
+<!-- | LAD | **attribute** | image |  | https://github.com/PatrickZH/A-Large-scale-Attribute-Dataset-for-Zero-shot-Learning | -->
+
 
 ## (Updating) Other Ecole related datasets
 | Datasets | Concept Types | Format | HF Dataset Link | Official Repo/Homepage |
@@ -30,6 +35,6 @@ The dataset loading script spefifies where to download the files and how to load
 | Visual Genome | object, attribute, relationship | image | https://huggingface.co/datasets/visual_genome | https://homes.cs.washington.edu/~ranjay/visualgenome/index.html |
 
 
-## [Updated Aug18] Implementation Notes
-- Done converting HF datasets: VAW, ImSitu, OmniLabel, Padv2
-- TODO: Add instruction/implementation handling image downloading for OmniLabel, VAW, ImSitu (Padv2 has the image downloading handled in the dataset loading script)
+## [Updated Aug 27] Implementation Notes
+- Done converting HF datasets: VAW, ImSitu, OmniLabel, Padv2, AwA2
+- TODO: Add instruction/implementation handling image downloading for OmniLabel, VAW, ImSitu (Padv2, and AwA2 has the image downloading handled in the dataset loading script)
