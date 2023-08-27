@@ -23,7 +23,7 @@ The dataset loading script spefifies where to download the files and how to load
 | PAD-v2 | **affordance** | image | https://huggingface.co/datasets/mikewang/padv2 | https://github.com/lhc1224/OSAD_Net |
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
 | Kinetics-400 | **activity** | video | https://huggingface.co/datasets/AlexFierro9/Kinetics400 | https://www.deepmind.com/open-source/kinetics |
-| AwA2 (TODO) | **attribute** (Animal) | image |  | https://cvml.ista.ac.at/AwA2/ |
+| AwA2 | **attribute** (Animal) | image | https://huggingface.co/datasets/mikewang/AwA2 | https://cvml.ista.ac.at/AwA2/ |
 | xView (TODO) | **object** (Satellite Imagery) | image | N/A | https://challenge.xviewdataset.org/data-download |
 <!-- | LAD | **attribute** | image |  | https://github.com/PatrickZH/A-Large-scale-Attribute-Dataset-for-Zero-shot-Learning | -->
 
