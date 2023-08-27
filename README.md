@@ -31,6 +31,7 @@ Please refer to [docs/IMAGE_DATA.md](docs/IMAGE_DATA.md) to learn about how to d
 | PAD-v2 | **affordance** | image | https://huggingface.co/datasets/mikewang/padv2 | https://github.com/lhc1224/OSAD_Net |
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
 | Kinetics-400 | **activity** | video | https://huggingface.co/datasets/AlexFierro9/Kinetics400 | https://www.deepmind.com/open-source/kinetics |
+| AwA2 | **attribute** (Animal) | image | https://huggingface.co/datasets/mikewang/AwA2 | https://cvml.ista.ac.at/AwA2/ |
 
 ## Currently Supported Other Datasets
 
