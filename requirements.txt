@@ -1,2 +1,4 @@
 datasets
 Pillow
+cached-path
+tqdm
