@@ -37,12 +37,12 @@ import json
 # dataset = load_dataset("./padv2") # automatically download files and generate dataset specified by the .py script
 
 # from huggingface dataset hub: 
-dataset = load_dataset("mikewang/padv2")
+# dataset = load_dataset("mikewang/padv2")
 
-from PIL import Image
-import os
-print(dataset)
-print(dataset['validation'][0])
+# from PIL import Image
+# import os
+# print(dataset)
+# print(dataset['validation'][0])
 # for item in dataset['validation']:
 #     if not os.path.exists(item['image_path']):
 #         print("missing one of the files: ", item['image_path'])
@@ -51,3 +51,9 @@ print(dataset['validation'][0])
 #     if not os.path.exists(item['mask_path']):
 #         print("missing one of the files: ", item['mask_path'])
 
+
+### AwA2 dataset ###
+# from local dataset loading script
+dataset = load_dataset("./AwA2")
+print(dataset)
+print(dataset['train'][0])
