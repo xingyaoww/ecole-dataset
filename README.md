@@ -28,6 +28,7 @@ Please refer to [docs/IMAGE_DATA.md](docs/IMAGE_DATA.md) to learn about how to d
 |----------|----------|----------|----------|----------|
 | OmniLabel | **object** | image | https://huggingface.co/datasets/xingyaoww/omnilabel | https://www.omnilabel.org/dataset/download |
 | VAW | **attribute**, object | image | https://huggingface.co/datasets/mikewang/vaw | https://github.com/adobe-research/vaw_dataset#dataset-setup |
+| PAD-v2 | **affordance** | image | https://huggingface.co/datasets/mikewang/padv2 | https://github.com/lhc1224/OSAD_Net |
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
 | Kinetics-400 | **activity** | video | https://huggingface.co/datasets/AlexFierro9/Kinetics400 | https://www.deepmind.com/open-source/kinetics |
 
