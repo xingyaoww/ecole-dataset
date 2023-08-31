@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Animals with Attributes v2 (AwA2)"""
+"""EuroSAT dataset"""
 
 
 import csv
@@ -22,14 +22,11 @@ import os
 import datasets
 
 _CITATION = """\
-@article{xian2018zero,
-  title={Zero-shot learning—a comprehensive evaluation of the good, the bad and the ugly},
-  author={Xian, Yongqin and Lampert, Christoph H and Schiele, Bernt and Akata, Zeynep},
-  journal={IEEE transactions on pattern analysis and machine intelligence},
-  volume={41},
-  number={9},
-  pages={2251--2265},
-  year={2018},
+@article{helber2019eurosat,
+  title={Eurosat: A novel dataset and deep learning benchmark for land use and land cover classification},
+  author={Helber, Patrick and Bischke, Benjamin and Dengel, Andreas and Borth, Damian},
+  journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
+  year={2019},
   publisher={IEEE}
 }
 """
@@ -37,18 +34,38 @@ _CITATION = """\
 # TODO: Add description of the dataset here
 # You can copy an official description
 _DESCRIPTION = """\
-**Homepage:** https://cvml.ista.ac.at/AwA2/
+**Homepage:** https://github.com/phelber/EuroSAT
 
 **IMPORTANT NOTES**
-- This HF dataset loads the instances with class-level annotations.
-- Images and License can be downloaded from: https://cvml.ista.ac.at/AwA2/AwA2-data.zip
+- This HF dataset downloads the RGB images of the EuroSAT dataset: https://zenodo.org/record/7711810#.ZAm3k-zMKEA; i.e., the EuroSAT_RGB.zip
 """
 
 # TODO: Add a link to an official homepage for the dataset here
-_HOMEPAGE = "https://cvml.ista.ac.at/AwA2/"
+_HOMEPAGE = "https://github.com/phelber/EuroSAT"
 
 # TODO: Add the licence for the dataset here if you can find it
-_LICENSE = ""
+_LICENSE = """MIT License
+
+Copyright (c) 2023 Patrick Helber
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
 
 # TODO: Add link to the official dataset URLs here
 # The HuggingFace Datasets library doesn't host the datasets but only points to the original files.
@@ -59,70 +76,27 @@ _LICENSE = ""
 # }
 
 _URLS = {
-    "data": "https://cvml.ista.ac.at/AwA2/AwA2-data.zip", # including images
-    # "annotation": "https://cvml.ista.ac.at/AwA2/AwA2-base.zip",
-    # "features": "http://cvml.ist.ac.at/AwA2/AwA2-features.zip",
+    "data": "https://zenodo.org/record/7711810/files/EuroSAT_RGB.zip",
 }
 
-
-def _load_AwA2_dataset(datadir):
-    image_dir = os.path.join(datadir, "JPEGImages")
-    classes_path = os.path.join(datadir, "classes.txt")
-    predicates_path = os.path.join(datadir, "predicates.txt")
-    annotation_binary = os.path.join(datadir, "predicate-matrix-binary.txt")
-    annotation_continuous = os.path.join(datadir, "predicate-matrix-continuous.txt")
-
-    # load classes
-    classes = []
-    with open(classes_path, "r") as f:
-        for line in f:
-            classes.append(line.split("\t")[1].strip())
-    # load predicates
-    predicates = []
-    with open(predicates_path, "r") as f:
-        for line in f:
-            predicates.append(line.split("\t")[1].strip())
-    
-    # class to annotation binary
-    annotation_binary_list = []
-    with open(annotation_binary, "r") as f:
-        for line in f:
-            ann = [int(x) for x in line.strip().split(" ")]
-            assert len(ann) == len(predicates)
-            annotation_binary_list.append(ann)
-    class_to_annotation_binary = dict(zip(classes, annotation_binary_list))
-    # class to annotation continuous
-    annotation_continuous_list = []
-    with open(annotation_continuous, "r") as f:
-        for line in f:
-            ann = [float(x) for x in line.strip().split(" ") if x != ""]
-            assert len(ann) == len(predicates)
-            annotation_continuous_list.append(ann)
-    class_to_annotation_continuous = dict(zip(classes, annotation_continuous_list))
-    
-    print("classes:", len(classes), classes)
-    print("attribute types:", len(predicates), predicates)
-
+def _load_EuroSAT_rgb(unzipped_dir):
     data = []
-    # list all images in image dir
-    for class_type in os.listdir(image_dir):
-        image_class_dir = os.path.join(image_dir, class_type)
-        for img_name in os.listdir(image_class_dir):
+    for class_label in os.listdir(unzipped_dir):
+        # print(class_label)
+        class_dir = os.path.join(unzipped_dir, class_label)
+        for img_id in os.listdir(class_dir):
             data.append(
                 {
-                    "image_id": img_name,
-                    "image_path": os.path.join(image_class_dir, img_name),
-                    "class": class_type,
-                    "attributes_binary": class_to_annotation_binary[class_type],
-                    "attributes_continuous": class_to_annotation_continuous[class_type],
-                    "attribute_types": predicates
+                    "image_id":img_id,
+                    "image_path":os.path.join(class_dir, img_id),
+                    "class":class_label,
                 }
             )
     return data
 
 
 # TODO: Name of the dataset usually matches the script name with CamelCase instead of snake_case
-class AwA2(datasets.GeneratorBasedBuilder):
+class EuroSAT(datasets.GeneratorBasedBuilder):
     """TODO: Short description of my dataset."""
 
     VERSION = datasets.Version("1.0.0")
@@ -171,9 +145,6 @@ class AwA2(datasets.GeneratorBasedBuilder):
                 "image_id": datasets.Value("string"),
                 "image_path": datasets.Value("string"),
                 "class": datasets.Value("string"),
-                "attributes_binary": datasets.features.Sequence(datasets.Value("int32")),
-                "attributes_continuous": datasets.features.Sequence(datasets.Value("float32")),
-                "attribute_types": datasets.features.Sequence(datasets.Value("string")),
             }
         )
 
@@ -203,10 +174,6 @@ class AwA2(datasets.GeneratorBasedBuilder):
         
         downloaded_files = dl_manager.download_and_extract(_URLS)
         
-        # downloaded_files = {
-        #     "data": "/shared/nas/data/m1/shared-resource/vision-language/data/raw/AwA2/Animals_with_Attributes2",
-        # }
-        
         print("downloaded_files: ", downloaded_files)
         return [
             datasets.SplitGenerator(
@@ -224,14 +191,11 @@ class AwA2(datasets.GeneratorBasedBuilder):
         # TODO: This method handles input defined in _split_generators to yield (key, example) tuples from the dataset.
         # The `key` is for legacy reasons (tfds) and is not important in itself, but must be unique for each example.
 
-        data = _load_AwA2_dataset(filepath)
+        data = _load_EuroSAT_rgb(os.path.join(filepath,"EuroSAT_RGB"))
 
         for key, row in enumerate(data):
             yield key, {
                 "image_id": row["image_id"],
                 "image_path": row["image_path"],
                 "class": row["class"],
-                "attributes_binary": row["attributes_binary"],
-                "attributes_continuous": row["attributes_continuous"],
-                "attribute_types": row["attribute_types"],
             }

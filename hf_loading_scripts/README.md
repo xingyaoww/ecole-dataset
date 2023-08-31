@@ -14,6 +14,7 @@ The dataset loading script spefifies where to download the files and how to load
 - [OmniLabel](omnilabel/)
 - [Padv2 (Part1)](padv2/)
 - [AwA2](AwA2/)
+- [EuroSAT](EuroSAT/)
 
 
 ## (TBD|Updating) Demo evaluation dataset pool
@@ -25,7 +26,8 @@ The dataset loading script spefifies where to download the files and how to load
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
 | Kinetics-400 | **activity** | video | https://huggingface.co/datasets/AlexFierro9/Kinetics400 | https://www.deepmind.com/open-source/kinetics |
 | AwA2 | **attribute** (Animal) | image | https://huggingface.co/datasets/mikewang/AwA2 | https://cvml.ista.ac.at/AwA2/ |
-| xView (TODO) | **object** (Satellite Imagery) | image | N/A | https://challenge.xviewdataset.org/data-download |
+| EuroSAT | **object** (Satellite Imagery) | image | https://huggingface.co/datasets/mikewang/EuroSAT | https://github.com/phelber/EuroSAT |
+<!-- | xView (TODO) | **object** (Satellite Imagery) | image | N/A | https://challenge.xviewdataset.org/data-download | -->
 <!-- | LAD | **attribute** | image |  | https://github.com/PatrickZH/A-Large-scale-Attribute-Dataset-for-Zero-shot-Learning | -->
 
 
@@ -36,5 +38,5 @@ The dataset loading script spefifies where to download the files and how to load
 
 
 ## [Updated Aug 27] Implementation Notes
-- Done converting HF datasets: VAW, ImSitu, OmniLabel, Padv2, AwA2
-- TODO: Add instruction/implementation handling image downloading for OmniLabel, VAW, ImSitu (Padv2, and AwA2 has the image downloading handled in the dataset loading script)
+- Done converting HF datasets: VAW, ImSitu, OmniLabel, Padv2, AwA2, EuroSAT
+- TODO: Add instruction/implementation handling image downloading for OmniLabel, VAW, ImSitu (Padv2, AwA2, EuroSAT has the image downloading handled in the dataset loading script)

@@ -54,6 +54,12 @@ import json
 
 ### AwA2 dataset ###
 # from local dataset loading script
-dataset = load_dataset("./AwA2")
+# dataset = load_dataset("./AwA2")
+# print(dataset)
+# print(dataset['train'][0])
+
+### EuroSAT dataset ###
+# from hf dataset loading script
+dataset = load_dataset("mikewang/EuroSAT")
 print(dataset)
 print(dataset['train'][0])
