@@ -32,6 +32,7 @@ Please refer to [docs/IMAGE_DATA.md](docs/IMAGE_DATA.md) to learn about how to d
 | ImSitu | **activity** | image | https://huggingface.co/datasets/mikewang/imsitu | https://github.com/my89/imSitu |
 | Kinetics-400 | **activity** | video | https://huggingface.co/datasets/AlexFierro9/Kinetics400 | https://www.deepmind.com/open-source/kinetics |
 | AwA2 | **attribute** (Animal) | image | https://huggingface.co/datasets/mikewang/AwA2 | https://cvml.ista.ac.at/AwA2/ |
+| EuroSAT | **object** (Satellite Imagery) | image | https://huggingface.co/datasets/mikewang/EuroSAT | https://github.com/phelber/EuroSAT |
 
 ## Currently Supported Other Datasets
 
