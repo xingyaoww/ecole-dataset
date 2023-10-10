@@ -1,3 +1,10 @@
+## [Update Oct 10] New datasets to be considered
+- iNaturalist (2021): https://github.com/visipedia/inat_comp/tree/master/2021
+- FGVC workshop: https://sites.google.com/view/fgvc8/home
+- OVEN: https://open-vision-language.github.io/oven/
+- Dollar street dataset: https://www.gapminder.org/dollar-street
+- GeoDE: https://geodiverse-data-collection.cs.princeton.edu/
+
 # Quickstart
 
 Install the ECOLE dataset package.
